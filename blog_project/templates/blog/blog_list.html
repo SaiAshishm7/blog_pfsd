@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Blog Posts</h1>
+    
+    <div class="filter">
+        <label>Filter by Genre:</label>
+        <select onchange="location = this.value">
+            <option value="{% url 'blog_list' %}">All Genres</option>
+            {% for genre in genres %}
+                <option value="{% url 'blog_list' %}?genre={{ genre.name }}" 
+                    {% if request.GET.genre == genre.name %}selected{% endif %}>
+                    {{ genre.name }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    {% for post in posts %}
+        <div class="post">
+            <h2><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h2>
+            <p>By {{ post.author.username }} | {{ post.created_at|date:"F d, Y" }}</p>
+            {% if post.image %}
+                <img src="{{ post.image.url }}" alt="{{ post.title }}">
+            {% endif %}
+            <p>{{ post.content|truncatewords:50 }}</p>
+            <p>Genre: {{ post.genre.name }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
