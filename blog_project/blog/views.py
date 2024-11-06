@@ -5,6 +5,12 @@ from django.contrib.auth import login, logout
 from .models import BlogPost, Genre
 from .forms import BlogPostForm
 
+
+from django.shortcuts import render
+
+def home(request):
+    return render(request, 'base.html')
+
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
