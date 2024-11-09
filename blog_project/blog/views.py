@@ -10,7 +10,7 @@ from django.shortcuts import render
 
 def home(request):
     return render(request, 'base.html')
-
+    
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
